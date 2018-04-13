@@ -243,7 +243,13 @@ begin
 		if downloadMessage <> '' then begin
 			// change isxdl language only if it is not english because isxdl default language is already english
 			if (ActiveLanguage() <> 'en') then begin
-				ExtractTemporaryFile(CustomMessage('isxdl_langfile'));
+
+var translationsFile: string;			
+translationsFile := CustomMessage('isxdl_langfile');
+if (translationsFile = '')
+	translationsFile = 'english';
+
+	ExtractTemporaryFile(translationsFile);
 				isxdl_SetOption('language', ExpandConstant('{tmp}{\}') + CustomMessage('isxdl_langfile'));
 			end;
 			//isxdl_SetOption('title', FmtMessage(SetupMessage(msgSetupWindowTitle), [CustomMessage('appname')]));
